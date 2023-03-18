@@ -1,0 +1,1 @@
+# ELF x86 - 0 protection

@@ -9,20 +9,34 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
 ----
 
 .. toctree::
-   :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: GNU Debugger
+   :caption: Preparation
 
-   docs/gdb/README.md
+   Build a local testlab <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/reverse/README.html>
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: Ghidra
+   :caption: Notes on techniques
 
-   docs/ghidra/README.md
+   docs/notes/README.md
+   docs/notes/formats.md
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :includehidden:
+   :caption: File formats
+
+   docs/formats/README.md
+   docs/formats/elf-x86-0.md
+   docs/formats/elf-x86-basic.md
+   docs/formats/pe-x86-0.md
+   docs/formats/elf-cpp-0.md
+   docs/formats/pe-dotnet-0.md
+
 
 ----
 
