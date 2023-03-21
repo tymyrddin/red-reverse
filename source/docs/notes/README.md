@@ -1,12 +1,12 @@
-# Ghidra
+# Introduction
 
 ## What?
 
-Notes on automating RE tasks, debug mode and extensions.
+Notes on techniques.
 
 ## Why?
 
-Learn how to use Ghidra
+These notes can serve as cheatsheets and reminders for future engagements and provide an easy entry level for others. And communication with peers also just feels nice, and improves collaborating with others and other teams. 
 
 ## How?
 
