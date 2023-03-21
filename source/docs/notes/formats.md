@@ -10,6 +10,8 @@ Every ELF file starts with an executable header, which is just a structured seri
 
 ## PE
 
+![32 bit PE](../../_static/images/32-bit-pe.png)
+
 ## RootMe challenges
 
 * [ELF x86 - 0](../formats/elf-x86-0.md)
