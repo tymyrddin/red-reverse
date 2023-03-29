@@ -13,7 +13,7 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    :includehidden:
    :caption: Testlab
 
-   Disssemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
+   Disassemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
 
 .. toctree::
    :glob:
@@ -36,7 +36,6 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    docs/root-me/pe-x86-0.md
    docs/root-me/elf-cpp-0.md
    docs/root-me/pe-dotnet-0.md
-
 
 ----
 
