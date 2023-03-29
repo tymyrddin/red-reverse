@@ -4,6 +4,8 @@
 
 Find the validation password.
 
+----
+
 Make the file executable:
 
 ```text

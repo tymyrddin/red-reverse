@@ -2,7 +2,7 @@
 
 ## What?
 
-Executable file format RootMe challenges.
+Executable file format root-me challenges.
 
 ## Why?
 

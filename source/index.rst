@@ -11,10 +11,9 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Preparation
+   :caption: Testlab
 
-   Testlab: Assemblers and compilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dev/README.html>
-   Testlab: Disssemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
+   Disssemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
 
 .. toctree::
    :glob:
@@ -29,14 +28,14 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: File formats
+   :caption: Root-me
 
-   docs/formats/README.md
-   docs/formats/elf-x86-0.md
-   docs/formats/elf-x86-basic.md
-   docs/formats/pe-x86-0.md
-   docs/formats/elf-cpp-0.md
-   docs/formats/pe-dotnet-0.md
+   docs/root-me/README.md
+   docs/root-me/elf-x86-0.md
+   docs/root-me/elf-x86-basic.md
+   docs/root-me/pe-x86-0.md
+   docs/root-me/elf-cpp-0.md
+   docs/root-me/pe-dotnet-0.md
 
 
 ----

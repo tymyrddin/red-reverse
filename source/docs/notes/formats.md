@@ -12,10 +12,10 @@ Every ELF file starts with an executable header, which is just a structured seri
 
 ![32 bit PE](../../_static/images/32-bit-pe.png)
 
-## RootMe challenges
+## Root-me challenges
 
-* [ELF x86 - 0](../formats/elf-x86-0.md)
-* [ELF x86 - Basic](../formats/elf-x86-basic.md)
-* [PE x86 - 0](../formats/pe-x86-0.md)
-* [ELF C++ - 0](../formats/elf-cpp-0.md)
-* [PE DotNet - 0](../formats/pe-dotnet-0.md)
+* [ELF x86 - 0](../root-me/elf-x86-0.md)
+* [ELF x86 - Basic](../root-me/elf-x86-basic.md)
+* [PE x86 - 0](../root-me/pe-x86-0.md)
+* [ELF C++ - 0](../root-me/elf-cpp-0.md)
+* [PE DotNet - 0](../root-me/pe-dotnet-0.md)

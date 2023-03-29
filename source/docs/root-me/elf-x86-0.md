@@ -1,29 +1,26 @@
-# ELF x86 - basic
+# ELF x86 - 0 protection
 
-[RootMe challenge: ELF x86 - Basic](https://www.root-me.org/en/Challenges/Cracking/ELF-x86-Basic)
+[RootMe challenge: ELF x86 - 0 protection](https://www.root-me.org/en/Challenges/Cracking/ELF-x86-0-protection): First challenge of cracking, written in C with vi and compiled with GCC32.
 
-Find the validation password.
+----
 
 ```text
-┌──(kali㉿kali)-[~/Downloads/cracking/ch2]
-└─$ ./ch2.bin
+┌──(kali㉿kali)-[~/Downloads/cracking/ch1]
+└─$ ./ch1.bin
 ############################################################
 ##        Bienvennue dans ce challenge de cracking        ##
 ############################################################
 
-username:     
-Bad username
+Veuillez entrer le mot de passe : 
+Dommage, essaye encore une fois.
                                                                                                                                                                       
-┌──(kali㉿kali)-[~/Downloads/cracking/ch2]
-└─$ strings ch2.bin  | grep ^username -B 5 -A 2
-john
-the ripper
+┌──(kali㉿kali)-[~/Downloads/cracking/ch1]
+└─$ strings ch1.bin | grep passe -B 4
+123456789
 ############################################################
 ##        Bienvennue dans ce challenge de cracking        ##
 ############################################################
-username: 
-password: 
-987654321
+Veuillez entrer le mot de passe : 
 ```
 
 ## Resources
