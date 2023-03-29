@@ -13,7 +13,8 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    :includehidden:
    :caption: Preparation
 
-   Build a local testlab <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/reverse/README.html>
+   Testlab: Assemblers and compilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dev/README.html>
+   Testlab: Disssemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
 
 .. toctree::
    :glob:
