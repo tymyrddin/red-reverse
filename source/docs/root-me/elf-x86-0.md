@@ -1,4 +1,4 @@
-# ELF x86 - 0 protection
+# ELF x86 0 protection
 
 [RootMe challenge: ELF x86 - 0 protection](https://www.root-me.org/en/Challenges/Cracking/ELF-x86-0-protection): First challenge of cracking, written in C with vi and compiled with GCC32.
 

@@ -1,4 +1,4 @@
-# ELF x86 - basic
+# ELF x86 basic
 
 [RootMe challenge: ELF x86 - Basic](https://www.root-me.org/en/Challenges/Cracking/ELF-x86-Basic)
 

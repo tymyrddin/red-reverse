@@ -1,4 +1,4 @@
-# ELF C++ - 0 protection
+# ELF C++ 0 protection
 
 [RootMe challenge: ELF C++ - 0 protection](https://www.root-me.org/en/Challenges/Cracking/ELF-C-0-protection): std::string
 

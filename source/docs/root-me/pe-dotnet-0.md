@@ -1,4 +1,4 @@
-# PE x86 - 0 protection
+# PE x86 0 protection
 
 [RootMe challenge: PE DotNet - 0 protection](https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection): Managed code
 

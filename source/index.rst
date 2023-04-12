@@ -36,6 +36,9 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    docs/root-me/pe-x86-0.md
    docs/root-me/elf-cpp-0.md
    docs/root-me/pe-dotnet-0.md
+   docs/root-me/godot-0.md
+   docs/root-me/godot-bytecode.md
+   docs/root-me/godot-mono.md
 
 ----
 
