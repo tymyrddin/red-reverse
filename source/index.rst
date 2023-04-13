@@ -13,7 +13,15 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    :includehidden:
    :caption: Testlab
 
-   Disassemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
+   Static analysis <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/static/README.html>
+   Disassemblers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
+   Debuggers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/deb/README.html>
+   Decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dec/README.html>
+   Program editing tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/pet/README.html>
+   Analysis automation programming <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/aap/README.html>
+   Software forensic tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/sft/README.html>
+
+----
 
 .. toctree::
    :glob:
@@ -22,7 +30,11 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    :caption: Notes on techniques
 
    docs/notes/README.md
+   docs/notes/assessment.md
    docs/notes/formats.md
+   docs/notes/samples.md
+
+----
 
 .. toctree::
    :glob:
