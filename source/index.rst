@@ -32,6 +32,7 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    docs/notes/README.md
    docs/notes/assessment.md
    docs/notes/formats.md
+   docs/notes/linux.md
    docs/notes/samples.md
 
 ----
