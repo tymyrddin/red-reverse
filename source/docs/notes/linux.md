@@ -5,7 +5,6 @@ This is a walkthrough: of:
 * Understanding linux executables
 * Reversing an ELF file
 * Virtualisation in Linux – an analysis of a Windows executable under a Linux host
-* Network traffic monitoring
 
 Install VCodium or VSCode, or another IDE, or just use `vim`. Also, `gcc`.
 
@@ -475,3 +474,270 @@ The `V` command sets the console to visual mode to debug the program while havin
 
 ![Radare 2 Visual mode](../../_static/images/radare-v-mode.png)
 
+## Getting a password
+
+
+```text
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ ls -la         
+total 16
+drwxr-xr-x 2 kali kali 4096 Apr 15 02:24 .
+drwxr-xr-x 4 kali kali 4096 Apr 15 02:24 ..
+-rw-r--r-- 1 kali kali 7520 Apr 15 02:23 passcode
+```
+
+The tools need access:
+
+```text
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ chmod +wx passcode
+```
+
+### Static
+
+```text
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ ls -l passcode
+-rw-r--r-- 1 kali kali 7520 Apr 15 02:23 passcode
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rahash2 -a md5,sha256 passcode
+passcode: 0x00000000-0x00001d5f md5: b365e87a6e532d68909fb19494168bed
+passcode: 0x00000000-0x00001d5f sha256: 68d6db63b69a7a55948e9d25065350c8e1ace9cd81e55a102bd42cc7fc527d8f
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rabin2 -I passcode
+arch     x86
+baddr    0x8048000
+binsz    6280
+bintype  elf
+bits     32
+canary   true
+class    ELF32
+compiler GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.10) 5.4.0 20160609
+crypto   false
+endian   little
+havecode true
+intrp    /lib/ld-linux.so.2
+laddr    0x0
+lang     c
+linenum  true
+lsyms    true
+machine  Intel 80386
+nx       true
+os       linux
+pic      false
+relocs   true
+relro    partial
+rpath    NONE
+sanitize false
+static   false
+stripped false
+subsys   linux
+va       true
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rabin2 -i passcode
+[Imports]
+nth vaddr      bind   type   lib name
+―――――――――――――――――――――――――――――――――――――
+1   0x080483b0 GLOBAL FUNC       printf
+2   0x080483c0 GLOBAL FUNC       __stack_chk_fail
+3   0x080483d0 GLOBAL FUNC       puts
+4   0x00000410 WEAK   NOTYPE     __gmon_start__
+5   0x080483e0 GLOBAL FUNC       strlen
+6   0x080483f0 GLOBAL FUNC       __libc_start_main
+7   0x08048400 GLOBAL FUNC       __isoc99_scanf
+
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rabin2 -H passcode
+0x00000000  ELF MAGIC   0x464c457f
+0x00000010  Type        0x0002
+0x00000012  Machine     0x0003
+0x00000014  Version     0x00000001
+0x00000018  Entrypoint  0x08048420
+0x0000001c  PhOff       0x00000034
+0x00000020  ShOff       0x00001888
+0x00000024  Flags       0x00000000
+0x00000028  EhSize      52
+0x0000002a  PhentSize   32
+0x0000002c  PhNum       9
+0x0000002e  ShentSize   40
+0x00000030  ShNum       31
+0x00000032  ShrStrndx   28
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rabin2 -z passcode
+[Strings]
+nth paddr      vaddr      len size section type  string
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+0   0x000006a0 0x080486a0 16  17   .rodata ascii Enter password: 
+1   0x000006b4 0x080486b4 17  18   .rodata ascii Correct password!
+2   0x000006c6 0x080486c6 19  20   .rodata ascii Incorrect password!
+```
+
+## Dynamic
+
+```text
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ ls -l passcode
+-rw-r--r-- 1 kali kali 7520 Apr 15 02:23 passcode
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rahash2 -a md5,sha256 passcode
+passcode: 0x00000000-0x00001d5f md5: b365e87a6e532d68909fb19494168bed
+passcode: 0x00000000-0x00001d5f sha256: 68d6db63b69a7a55948e9d25065350c8e1ace9cd81e55a102bd42cc7fc527d8f
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rabin2 -I passcode
+arch     x86
+baddr    0x8048000
+binsz    6280
+bintype  elf
+bits     32
+canary   true
+class    ELF32
+compiler GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.10) 5.4.0 20160609
+crypto   false
+endian   little
+havecode true
+intrp    /lib/ld-linux.so.2
+laddr    0x0
+lang     c
+linenum  true
+lsyms    true
+machine  Intel 80386
+nx       true
+os       linux
+pic      false
+relocs   true
+relro    partial
+rpath    NONE
+sanitize false
+static   false
+stripped false
+subsys   linux
+va       true
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rabin2 -i passcode
+[Imports]
+nth vaddr      bind   type   lib name
+―――――――――――――――――――――――――――――――――――――
+1   0x080483b0 GLOBAL FUNC       printf
+2   0x080483c0 GLOBAL FUNC       __stack_chk_fail
+3   0x080483d0 GLOBAL FUNC       puts
+4   0x00000410 WEAK   NOTYPE     __gmon_start__
+5   0x080483e0 GLOBAL FUNC       strlen
+6   0x080483f0 GLOBAL FUNC       __libc_start_main
+7   0x08048400 GLOBAL FUNC       __isoc99_scanf
+
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rabin2 -H passcode
+0x00000000  ELF MAGIC   0x464c457f
+0x00000010  Type        0x0002
+0x00000012  Machine     0x0003
+0x00000014  Version     0x00000001
+0x00000018  Entrypoint  0x08048420
+0x0000001c  PhOff       0x00000034
+0x00000020  ShOff       0x00001888
+0x00000024  Flags       0x00000000
+0x00000028  EhSize      52
+0x0000002a  PhentSize   32
+0x0000002c  PhNum       9
+0x0000002e  ShentSize   40
+0x00000030  ShNum       31
+0x00000032  ShrStrndx   28
+                                                                                                                                                                      
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ rabin2 -z passcode
+[Strings]
+nth paddr      vaddr      len size section type  string
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+0   0x000006a0 0x080486a0 16  17   .rodata ascii Enter password: 
+1   0x000006b4 0x080486b4 17  18   .rodata ascii Correct password!
+2   0x000006c6 0x080486c6 19  20   .rodata ascii Incorrect password!
+```
+
+Moving to radare2:
+
+```text
+$ radare2 -d passcode
+glibc.fc_offset = 0x00148
+[0xf7eed450]> aaaa
+[x] Analyze all flags starting with sym. and entry0 (aa)
+[x] Analyze function calls (aac)
+[x] Analyze len bytes of instructions for references (aar)
+[x] Finding and parsing C++ vtables (avrr)
+[x] Skipping type matching analysis in debugger mode (aaft)
+[x] Propagate noreturn information (aanr)
+[x] Finding function preludes
+[x] Enable constraint types analysis for variables
+[0xf7eed450]> s sym.main
+[0x0804851b]> VVV
+[0x0804851b]>  # int main (char **argv); 
+```
+
+This opens up a graphical representation of the disassembly code blocks from the `main` function.
+Scroll down , and ha!, the `Correct password!` text string:
+
+![password](../../_static/images/radare-password1.png)
+
+In the `0x80485d3` block, where the `Correct password!` string is, the message was displayed using `puts`. Going to that block is a red line from the `0x80485c7` block, in which the value in `local_418h` was compared to `0x2de` (or `734` in decimal format). If equal to `734`, the flow goes to the `Correct password!` block.
+
+There is a loop (blue lines), and to exit the loop, the value at `local_414h` must be greater than or equal to the value at `local_410h`. The loop exits to the `0x80485c7` block. 
+
+At the `0x8048582` block, both values, at `local_418h` and `local_414h` are initialised to 0. These values are compared in the `0x80485b9` block.
+
+In the `0x8048598` block, there are three variables of concern: `local_40ch`, `local_414h`, and `local_418h`. `local_414h` seems to be a pointer of the data pointed to by `local_40c`. `local_418` starts from `0`, and each byte from `local_40ch` is added.
+
+Now looking at the main block:
+
+![password](../../_static/images/radare-password2.png)
+
+There are three named functions: `printf()`, `scanf()`, and `strlen()`, and `local_40ch` is the second parameter for `scanf`, while the data at the `0x80486b1` address should contain the format
+expected.
+
+To retrieve the data at `0x80486b1`, enter a colon (`:`), enter `s 0x80486b1`, then return back to the visual mode. Press `q` again to view the data:
+
+![password](../../_static/images/radare-password3.png)
+
+The code likely looks something like this:
+
+```text
+    ...
+    printf ("Enter password: ");
+    scanf ("%s", local_40ch);
+    local_410h = strlen(local_40ch);
+    if (local_410h != 7)
+        puts ("Incorrect password!);
+    else
+    {
+        int local_418h = 0;
+        for (int local_414h = 0; local_414h < local_410h; local_414++)
+        {
+            local_418h += local_40ch[local_414h];
+        }
+        if (local_418h == 734)
+            puts("Correct password!)
+    }
+```
+
+The entered password should have a size of `7` characters and the sum of all characters in the password should be equal to `734`. The password can be anything, as long as it satisfies these conditions.
+
+```text
+┌──(kali㉿kali)-[~/Development/C/passcode]
+└─$ ltrace ./passcode 
+__libc_start_main(0x804851b, 1, 0xffab2254, 0x8048620 <unfinished ...>
+printf("Enter password: ")                                                                            = 16
+__isoc99_scanf(0x80486b1, 0xffab1d7c, 0xf7f3cbac, 1Enter password: hiiiiii
+)                                                  = 1
+strlen("hiiiiii")                                                                                     = 7
+puts("Correct password!"Correct password!
+)                                                                             = 18
++++ exited (status 0) +++
+```
