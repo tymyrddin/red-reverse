@@ -12,4 +12,4 @@ These notes can serve as cheatsheets and reminders for future engagements and pr
 
 * [Assessment and static analysis](assessment.md)
 * [Executable file formats](formats.md)
-* [Samples for more practice](samples.md)
+* [Reverse engineering in Linux](linux.md)

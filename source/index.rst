@@ -33,7 +33,6 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    docs/notes/assessment.md
    docs/notes/formats.md
    docs/notes/linux.md
-   docs/notes/samples.md
 
 ----
 
@@ -52,6 +51,14 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    docs/root-me/godot-0.md
    docs/root-me/godot-bytecode.md
    docs/root-me/godot-mono.md
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :includehidden:
+   :caption: More
+
+   docs/more/samples.md
 
 ----
 
