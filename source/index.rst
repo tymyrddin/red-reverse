@@ -45,8 +45,8 @@ Coding for better understanding of concepts, and for some hands-on.
    :includehidden:
    :caption: Useful snippets
 
-   Code snippets for using WASM <https://github.com/tymyrddin/codes-reverse/tree/main/wasm>
    Using Windows APIs <https://github.com/tymyrddin/codes-reverse/tree/main/windows>
+   Code snippets for using WASM <https://github.com/tymyrddin/codes-reverse/tree/main/wasm>
 
 ----
 
@@ -54,17 +54,31 @@ Coding for better understanding of concepts, and for some hands-on.
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: Root-me Cracking challenges
+   :caption: Root-me cracking challenges
 
    docs/root-me/README.md
    docs/root-me/elf-x86-0.md
    docs/root-me/elf-x86-basic.md
    docs/root-me/pe-x86-0.md
    docs/root-me/elf-cpp-0.md
-   docs/root-me/pe-dotnet-0.md
    docs/root-me/godot-0.md
+   docs/root-me/pe-dotnet-0.md
+   docs/root-me/elf-mips-basic.md
+   docs/root-me/elf-x64-go-basic.md
+   docs/root-me/elf-x86-fake.md
+   docs/root-me/elf-x86-ptrace.md
    docs/root-me/godot-bytecode.md
+   docs/root-me/wasm-intro.md
+   docs/root-me/elf-arm-basic.md
    docs/root-me/godot-mono.md
+   docs/root-me/pyc-bytecode.md
+   docs/root-me/elf-x86-no-br.md
+   docs/root-me/elf-arm-1337.md
+   docs/root-me/elf-x86-crackpass.md
+   docs/root-me/elf-x86-exploitme.md
+   docs/root-me/elf-x86-random.md
+   docs/root-me/gb-basic.md
+   docs/root-me/apk-anti-debug.md
 
 ----
 
