@@ -33,6 +33,20 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    docs/notes/assessment.md
    docs/notes/formats.md
    docs/notes/linux.md
+   docs/notes/windows.md
+   docs/notes/wasm.md
+
+----
+
+Coding for better understanding of concepts, and for some hands-on.
+
+.. toctree::
+   :maxdepth: 1
+   :includehidden:
+   :caption: Useful snippets
+
+   Code snippets for using WASM <https://github.com/tymyrddin/codes-reverse/tree/main/wasm>
+   Using Windows APIs <https://github.com/tymyrddin/codes-reverse/tree/main/windows>
 
 ----
 
@@ -40,7 +54,7 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: Root-me
+   :caption: Root-me Cracking challenges
 
    docs/root-me/README.md
    docs/root-me/elf-x86-0.md
@@ -51,6 +65,8 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    docs/root-me/godot-0.md
    docs/root-me/godot-bytecode.md
    docs/root-me/godot-mono.md
+
+----
 
 .. toctree::
    :glob:
