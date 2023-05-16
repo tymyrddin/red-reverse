@@ -1,7 +1,10 @@
-Cracking nuts
+Cracking nuts & malware analysis
 =========================================
 
 Deciphering the inner workings of compiled languages in detail. Disassembling binaries to solve the crackmes at the assembly level.
+
+And inspecting several malware samples in the wild, a typical pattern arises, making analysing other samples easier with
+experience. Knowing these common behaviours gives an idea of what to look for on the defensive side.
 
 .. image:: _static/images/in-progress.png
   :alt: Forever in progress ...
@@ -13,28 +16,46 @@ Deciphering the inner workings of compiled languages in detail. Disassembling bi
    :includehidden:
    :caption: Testlab
 
-   Static analysis <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/static/README.html>
-   Disassemblers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
-   Debuggers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/deb/README.html>
-   Decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dec/README.html>
-   Program editing tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/pet/README.html>
-   Analysis automation programming <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/aap/README.html>
-   Software forensic tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/sft/README.html>
+   Static analysis <https://testlab.tymyrddin.dev/docs/static/README>
+   Disassemblers <https://testlab.tymyrddin.dev/docs/dis/README>
+   Debuggers <https://testlab.tymyrddin.dev/docs/deb/README>
+   Decompilers <https://testlab.tymyrddin.dev/docs/dec/README>
+   Program editing tools <https://testlab.tymyrddin.dev/docs/pet/README>
+   Analysis automation programming <https://testlab.tymyrddin.dev/docs/aap/README>
+   Software forensic tools <https://testlab.tymyrddin.dev/docs/dfir/README>
+   Malware analysis tools <https://testlab.tymyrddin.dev/docs/malware/README>
 
 ----
+
+Notes on techniques
+-----------------------------
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: Notes on techniques
+   :caption: Cracking
 
-   docs/notes/README.md
-   docs/notes/assessment.md
-   docs/notes/formats.md
-   docs/notes/linux.md
-   docs/notes/windows.md
-   docs/notes/wasm.md
+   docs/cracking/README.md
+   docs/cracking/assessment.md
+   docs/cracking/formats.md
+   docs/cracking/linux.md
+   docs/cracking/windows.md
+   docs/cracking/wasm.md
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :includehidden:
+   :caption: Malware analysis
+
+   docs/malware/README.md
+   docs/malware/history.md
+   docs/malware/behaviours.md
+   docs/malware/purpose.md
+   docs/malware/signatures.md
+   docs/malware/analysis.md
+   docs/malware/packers.md
 
 ----
 
@@ -49,6 +70,18 @@ Coding for better understanding of concepts, and for some hands-on.
    Code snippets for using WASM <https://github.com/tymyrddin/codes-reverse/tree/main/wasm>
 
 ----
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :includehidden:
+   :caption: TryHackMe rooms
+
+   docs/thm/README.md
+   docs/thm/pdfs.md
+   docs/thm/macros.md
+   docs/thm/bags.md
+   docs/thm/matter.md
 
 .. toctree::
    :glob:

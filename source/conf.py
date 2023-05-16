@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Cracking nuts'
+project = 'Cracking nuts & malware analysis'
 copyright = '2023, Ty Myrddin'
 author = 'Ty Myrddin'
 release = '0.1'
@@ -54,7 +54,7 @@ html_theme_options = {
     'titles_only': False
 }
 
-html_title = "Cracking nuts"
+html_title = "Cracking nuts & malware analysis"
 html_logo = "img/logo.png"
 html_favicon = "img/favicon.ico"
 
@@ -76,12 +76,6 @@ html_show_sphinx = False
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 html_show_copyright = False
 
-
-# Intersphinx
-intersphinx_mapping = {
-    "red": ("https://red.tymyrddin.dev/en/latest/", None),
-    "red-ad": ("https://red.tymyrddin.dev/projects/ad/en/latest/", None),
-}
 myst_url_schemes = ["http", "https", ]
 
 myst_enable_extensions = [
