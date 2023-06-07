@@ -116,12 +116,13 @@ Coding for better understanding of concepts, and for some hands-on.
 ----
 
 .. toctree::
-   :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: More
+   :caption: More practice
 
-   docs/more/samples.md
+   Malware traffic analysis exercises <https://www.malware-traffic-analysis.net/training-exercises.html>
+   theZoo - A Live Malware Repository <https://github.com/ytisf/theZoo>
+   crackmes.one <https://crackmes.one/>
 
 ----
 
