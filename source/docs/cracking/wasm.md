@@ -10,3 +10,5 @@ Files in `.wasm` format contain low level binary instructions (bytecode), execut
 
 ## Resources
 
+* [WebAssembly](https://webassembly.org/)
+

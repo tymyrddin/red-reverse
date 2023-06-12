@@ -1,6 +1,4 @@
-# Executable file formats
-
-## ELF
+# Executable and Linkable Format (ELF)
 
 Executable and Linkable Format (ELF) is the default binary format on Linux-based systems. It is used for executable files, object files, shared libraries, and core dumps.
 
@@ -8,14 +6,9 @@ Executable and Linkable Format (ELF) is the default binary format on Linux-based
 
 Every ELF file starts with an executable header, which is just a structured series of bytes telling you that it’s an ELF file, what kind of ELF file it is, and where in the file to find all the other contents.
 
-## PE
-
-![32 bit PE](../../_static/images/32-bit-pe.png)
-
 ## Root-me challenges
 
 * [ELF x86 - 0](../root-me/elf-x86-0.md)
 * [ELF x86 - Basic](../root-me/elf-x86-basic.md)
-* [PE x86 - 0](../root-me/pe-x86-0.md)
 * [ELF C++ - 0](../root-me/elf-cpp-0.md)
-* [PE DotNet - 0](../root-me/pe-dotnet-0.md)
+* 

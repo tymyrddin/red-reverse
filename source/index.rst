@@ -34,11 +34,21 @@ Notes on techniques
    :glob:
    :maxdepth: 1
    :includehidden:
+   :caption: Binary formats
+
+   docs/binary/README.md
+   docs/binary/anatomy.md
+   docs/binary/elf.md
+   docs/binary/pe.md
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :includehidden:
    :caption: Cracking
 
    docs/cracking/README.md
    docs/cracking/assessment.md
-   docs/cracking/formats.md
    docs/cracking/linux.md
    docs/cracking/windows.md
    docs/cracking/wasm.md
