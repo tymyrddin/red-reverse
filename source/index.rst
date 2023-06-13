@@ -85,18 +85,6 @@ Coding for better understanding of concepts, and for some hands-on.
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: TryHackMe rooms
-
-   docs/thm/README.md
-   docs/thm/pdfs.md
-   docs/thm/macros.md
-   docs/thm/bags.md
-   docs/thm/matter.md
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :includehidden:
    :caption: Root-me cracking challenges
 
    docs/root-me/README.md
@@ -122,6 +110,18 @@ Coding for better understanding of concepts, and for some hands-on.
    docs/root-me/elf-x86-random.md
    docs/root-me/gb-basic.md
    docs/root-me/apk-anti-debug.md
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :includehidden:
+   :caption: TryHackMe rooms
+
+   docs/thm/README.md
+   docs/thm/pdfs.md
+   docs/thm/macros.md
+   docs/thm/bags.md
+   docs/thm/matter.md
 
 ----
 

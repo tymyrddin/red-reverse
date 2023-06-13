@@ -11,4 +11,3 @@ Every ELF file starts with an executable header, which is just a structured seri
 * [ELF x86 - 0](../root-me/elf-x86-0.md)
 * [ELF x86 - Basic](../root-me/elf-x86-basic.md)
 * [ELF C++ - 0](../root-me/elf-cpp-0.md)
-* 
