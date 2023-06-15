@@ -6,7 +6,7 @@ Executable and Linkable Format (ELF) is the default binary format on Linux-based
 
 ## Executable header
 
-Every ELF file starts with an executable header, which is just a structured series of bytes telling you that it’s an ELF file, what kind of ELF file it is, and where in the file to find all the other contents. The executable header is represented in `/usr/include/elf.h` as a C struct called `Elf64_Ehdr`:
+Every ELF file starts with an executable header, which is just a structured series of bytes telling you that it's an ELF file, what kind of ELF file it is, and where in the file to find all the other contents. The executable header is represented in `/usr/include/elf.h` as a C struct called `Elf64_Ehdr`:
 
 ```text
 #define EI_NIDENT (16)
@@ -30,9 +30,9 @@ typedef struct
 } Elf32_Ehdr;
 ```
 
-### e_ident array
+### e_ident
 
-The executable header (and the ELF file) starts with a 16-byte array called `e_ident`. The `e_ident` array always starts with a 4-byte "magic value" identifying the file as an ELF binary. The magic value consists of the hexadecimal number `0x7f`, followed by the ASCII character codes for the letters E, L, and F. Having these bytes right at the start is convenient because it allows tools such as file, as well as specialized tools such as the binary loader, to quickly discover that they’re dealing with an ELF file.
+The executable header (and the ELF file) starts with a 16-byte array called `e_ident`. The `e_ident` array always starts with a 4-byte "magic value" identifying the file as an ELF binary. The magic value consists of the hexadecimal number `0x7f`, followed by the ASCII character codes for the letters E, L, and F. Having these bytes right at the start is convenient because it allows tools such as file, as well as specialized tools such as the binary loader, to quickly discover that they're dealing with an ELF file.
 
 ```text
 /* Fields in the e_ident array.  The EI_* macros are indices into the
@@ -67,7 +67,7 @@ Following the magic value, there are a number of bytes that give more detailed i
 #define ELFCLASSNUM	3
 ```
 
-The `EI_CLASS` byte denotes whether the binary is for a 32-bit or 64-bit architecture. In the former case, the `EI_CLASS` byte is set to the constant `ELFCLASS32` (which is equal to 1), while in the latter case, it’s set to `ELFCLASS64` (equal to 2).
+The `EI_CLASS` byte denotes whether the binary is for a 32-bit or 64-bit architecture. In the former case, the `EI_CLASS` byte is set to the constant `ELFCLASS32` (which is equal to 1), while in the latter case, it's set to `ELFCLASS64` (equal to 2).
 
 ```text
 #define EI_DATA		5		/* Data encoding byte index */
@@ -112,7 +112,7 @@ If the `EI_OSABI` byte is set to nonzero, it means that some ABI- or OS-specific
 #define EI_ABIVERSION	8		/* ABI version */
 ```
 
-The `EI_ABIVERSION` byte denotes the specific version of the ABI indicated in the `EI_OSABI` byte that the binary targets. You’ll usually see this set to zero because it’s not necessary to specify any version information when the default EI_OSABI is used.
+The `EI_ABIVERSION` byte denotes the specific version of the ABI indicated in the `EI_OSABI` byte that the binary targets. You'll usually see this set to zero because it's not necessary to specify any version information when the default EI_OSABI is used.
 
 ```text
 #define EI_PAD		9		/* Byte index of padding bytes */
@@ -146,7 +146,7 @@ ELF Header:
   Section header string table index: 30
 ```
 
-### e_type, e_machine, and e_version fields
+### e_type, e_machine, and e_version
 
 After the `e_ident` array comes a series of multibyte integer fields.
 
@@ -376,27 +376,27 @@ The `e_version` field serves the same role as the `EI_VERSION` byte in the `e_id
 #define EV_NUM		2
 ```
 
-### e_entry field
+### e_entry
 
 The `e_entry` field denotes the entry point of the binary; this is the virtual address at which execution should start.
 
-### e_phoff and e_shoff fields
+### e_phoff and e_shoff
 
 `e_phoff` and `e_shoff` indicate the file offsets to the beginning of the program header table and the section header table. The offsets can also be set to zero to indicate that the file does not contain a program header or section header table. These fields are file offsets, meaning the number of bytes read into the file to get to the headers. In contrast to the `e_entry` field, `e_phoff` and `e_shoff` are not virtual addresses.
 
-### e_flags field
+### e_flags
 
 ARM binaries can set ARM-specific flags in the `e_flags` field to indicate additional details about the interface they expect from the embedded operating system such as file format conventions, stack organization, etc. For `x86` binaries, `e_flags` is typically set to zero and not of interest.
 
-### e_ehsize field
+### e_ehsize
 
 The `e_ehsize` field specifies the size of the executable header, in bytes. For 64-bit `x86` binaries, the executable header size is always 64 bytes. 
 
-### e_*entsize and e_*num fields
+### e_*entsize and e_*num
 
 The `e_phoff` and `e_shoff` fields point to the file offsets where the program header and section header tables begin. The `e_phentsize` and `e_phnum` fields provide program header table entry size and program header table entry count. The `e_shentsize` and `e_shnum` fields give the size of the section header table entry and count.
 
-### e_shstrndx field
+### e_shstrndx
 
 The `e_shstrndx` field contains the index in the section header table of the header associated with a special string table section called `.shstrtab`. This is a dedicated section that contains a table of null-terminated ASCII strings, which store the names of all the sections in the binary. It is used by ELF processing tools such as readelf to correctly show the names of sections.
 
@@ -425,3 +425,153 @@ Hex dump of section '.shstrtab':
 ```
 
 ## Section headers
+
+The code and data in an ELF binary are logically divided into contiguous nonoverlapping chunks called sections. Sections don't have any predetermined structure. Every section is described by a section header, which denotes the properties of the section and allows you to locate the bytes belonging to the section. The section headers for all sections in a binary are in the section header table.
+
+```text
+/* Section header.  */
+
+typedef struct
+{
+  Elf32_Word	sh_name;		/* Section name (string tbl index) */
+  Elf32_Word	sh_type;		/* Section type */
+  Elf32_Word	sh_flags;		/* Section flags */
+  Elf32_Addr	sh_addr;		/* Section virtual addr at execution */
+  Elf32_Off	sh_offset;		/* Section file offset */
+  Elf32_Word	sh_size;		/* Section size in bytes */
+  Elf32_Word	sh_link;		/* Link to another section */
+  Elf32_Word	sh_info;		/* Additional section information */
+  Elf32_Word	sh_addralign;		/* Section alignment */
+  Elf32_Word	sh_entsize;		/* Entry size if section holds table */
+} Elf32_Shdr;
+
+typedef struct
+{
+  Elf64_Word	sh_name;		/* Section name (string tbl index) */
+  Elf64_Word	sh_type;		/* Section type */
+  Elf64_Xword	sh_flags;		/* Section flags */
+  Elf64_Addr	sh_addr;		/* Section virtual addr at execution */
+  Elf64_Off	sh_offset;		/* Section file offset */
+  Elf64_Xword	sh_size;		/* Section size in bytes */
+  Elf64_Word	sh_link;		/* Link to another section */
+  Elf64_Word	sh_info;		/* Additional section information */
+  Elf64_Xword	sh_addralign;		/* Section alignment */
+  Elf64_Xword	sh_entsize;		/* Entry size if section holds table */
+} Elf64_Shdr;
+```
+
+### sh_name
+
+The first field in a section header is called `sh_name`. If set, it contains an index into the string table. If the index is zero, it means the section does not have a name. When analysing malware, do not rely on the contents of the `sh_name` field, because the malware may use intentionally misleading section names.
+
+The `.shstrtab` section contains an array of `NULL`-terminated strings, one for every section name. The index of the section header describing the string table is given in the `e_shstrndx` field of the executable header. This allows tools like readelf to easily find the `.shstrtab` section and then index it with the `sh_name` field of every section header (including the header of `.shstrtab`) to find the string describing the name of the section in question.
+
+### sh_type
+
+Every section has a type, indicated by an integer field called `sh_type`, that tells the linker something about the structure of a section's contents.
+
+```text
+/* Legal values for sh_type (section type).  */
+
+#define SHT_NULL	  0		/* Section header table entry unused */
+#define SHT_PROGBITS	  1		/* Program data */
+#define SHT_SYMTAB	  2		/* Symbol table */
+#define SHT_STRTAB	  3		/* String table */
+#define SHT_RELA	  4		/* Relocation entries with addends */
+#define SHT_HASH	  5		/* Symbol hash table */
+#define SHT_DYNAMIC	  6		/* Dynamic linking information */
+#define SHT_NOTE	  7		/* Notes */
+#define SHT_NOBITS	  8		/* Program space with no data (bss) */
+#define SHT_REL		  9		/* Relocation entries, no addends */
+#define SHT_SHLIB	  10		/* Reserved */
+#define SHT_DYNSYM	  11		/* Dynamic linker symbol table */
+#define SHT_INIT_ARRAY	  14		/* Array of constructors */
+#define SHT_FINI_ARRAY	  15		/* Array of destructors */
+#define SHT_PREINIT_ARRAY 16		/* Array of pre-constructors */
+#define SHT_GROUP	  17		/* Section group */
+#define SHT_SYMTAB_SHNDX  18		/* Extended section indices */
+#define	SHT_NUM		  19		/* Number of defined types.  */
+#define SHT_LOOS	  0x60000000	/* Start OS-specific.  */
+#define SHT_GNU_ATTRIBUTES 0x6ffffff5	/* Object attributes.  */
+#define SHT_GNU_HASH	  0x6ffffff6	/* GNU-style hash table.  */
+#define SHT_GNU_LIBLIST	  0x6ffffff7	/* Prelink library list */
+#define SHT_CHECKSUM	  0x6ffffff8	/* Checksum for DSO content.  */
+#define SHT_LOSUNW	  0x6ffffffa	/* Sun-specific low bound.  */
+#define SHT_SUNW_move	  0x6ffffffa
+#define SHT_SUNW_COMDAT   0x6ffffffb
+#define SHT_SUNW_syminfo  0x6ffffffc
+#define SHT_GNU_verdef	  0x6ffffffd	/* Version definition section.  */
+#define SHT_GNU_verneed	  0x6ffffffe	/* Version needs section.  */
+#define SHT_GNU_versym	  0x6fffffff	/* Version symbol table.  */
+#define SHT_HISUNW	  0x6fffffff	/* Sun-specific high bound.  */
+#define SHT_HIOS	  0x6fffffff	/* End OS-specific type */
+#define SHT_LOPROC	  0x70000000	/* Start of processor-specific */
+#define SHT_HIPROC	  0x7fffffff	/* End of processor-specific */
+#define SHT_LOUSER	  0x80000000	/* Start of application-specific */
+#define SHT_HIUSER	  0x8fffffff	/* End of application-specific */
+```
+
+Sections with type `SHT_PROGBITS` contain program data, such as machine instructions or constants. These sections have no particular structure for the linker to parse.
+
+`SHT_SYMTAB` is the type for static symbol tables, `SHT_DYNSYM` for symbol tables used by the dynamic linker, and `SHT_STRTAB` for string tables. 
+
+Sections with type `SHT_REL` or `SHT_RELA` are particularly important for the linker because they contain relocation entries in a well-defined format. Each relocation entry tells the linker about a particular location in the binary where a relocation is needed and which symbol the relocation should be resolved to. 
+
+Sections of type `SHT_DYNAMIC` contain information needed for dynamic linking.
+
+### sh_flags
+
+Section flags describe additional information about a section.
+
+```text
+/* Legal values for sh_flags (section flags).  */
+
+#define SHF_WRITE	     (1 << 0)	/* Writable */
+#define SHF_ALLOC	     (1 << 1)	/* Occupies memory during execution */
+#define SHF_EXECINSTR	     (1 << 2)	/* Executable */
+#define SHF_MERGE	     (1 << 4)	/* Might be merged */
+#define SHF_STRINGS	     (1 << 5)	/* Contains nul-terminated strings */
+#define SHF_INFO_LINK	     (1 << 6)	/* `sh_info' contains SHT index */
+#define SHF_LINK_ORDER	     (1 << 7)	/* Preserve order after combining */
+#define SHF_OS_NONCONFORMING (1 << 8)	/* Non-standard OS specific handling
+					   required */
+#define SHF_GROUP	     (1 << 9)	/* Section is member of a group.  */
+#define SHF_TLS		     (1 << 10)	/* Section hold thread-local data.  */
+#define SHF_COMPRESSED	     (1 << 11)	/* Section with compressed data. */
+#define SHF_MASKOS	     0x0ff00000	/* OS-specific.  */
+#define SHF_MASKPROC	     0xf0000000	/* Processor-specific */
+#define SHF_GNU_RETAIN	     (1 << 21)  /* Not to be GCed by linker.  */
+#define SHF_ORDERED	     (1 << 30)	/* Special ordering requirement
+					   (Solaris).  */
+#define SHF_EXCLUDE	     (1U << 31)	/* Section is excluded unless
+					   referenced or allocated (Solaris).*/
+```
+
+`SHF_WRITE` indicates the section is writable at runtime. This makes it easy to distinguish between sections that contain static data and those that contain variables. 
+
+The `SHF_ALLOC` flag indicates that the contents of the section are to be loaded into virtual memory when executing the binary (the actual loading happens using the segment view of the binary, not the section view). 
+
+`SHF_EXECINSTR` indicates the section contains executable instructions, which is useful to know when disassembling a binary.
+
+### sh_addr, sh_offset, and sh_size
+
+The `sh_addr`, `sh_offset`, and `sh_size` fields describe the virtual address, file offset (in bytes from the start of the file), and size (in bytes) of the section, respectively.
+
+The linker sometimes needs to know at which addresses particular pieces of code and data will end up at runtime to do relocations. The `sh_addr` field provides this information. Sections that aren’t intended to be loaded into virtual memory when setting up the process have an `sh_addr` value of zero.
+
+### sh_link
+
+Sometimes there are relationships between sections that the linker needs to know about. The `sh_link` field makes these relationships explicit by denoting the index (in the section header table) of the related section.
+
+### sh_info
+
+The `sh_info` field contains additional information about the section. The meaning of the additional information varies depending on the section type. For example, for relocation sections, `sh_info` denotes the index of the section to which the relocations are to be applied.
+
+### sh_addralign
+
+Some sections may need to be aligned in memory in a particular way for efficiency of memory accesses. These alignment
+requirements are specified in the `sh_addralign` field.
+
+### sh_entsize
+
+Some sections, such as symbol tables or relocation tables, contain a table of well-defined data structures. For such sections, the `sh_entsize` field indicates the size in bytes of each entry in the table. When the field is unused, it is set to zero.
