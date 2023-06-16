@@ -1,21 +1,21 @@
 h1 {
-  color: #AA00FF;
+  color: #330099;
 }
 
 a {
-  color: #AA00FF;
+  color: #330099;
 }
 
 a:hover {
-  color: #CC00FF;
+  color: #330099;
 }
 
 .wy-nav .wy-menu-vertical header {
-  color: #AA00FF;
+  color: #6600CC;
 }
 
 .wy-menu-vertical header, .wy-menu-vertical p.caption {
-  color: #AA00FF;
+  color: #6600CC;
 }
 
 .wy-side-nav-search {
@@ -23,11 +23,15 @@ a:hover {
   color: #fcfcfc;
 }
 
+.wy-menu-vertical a:hover {
+  color: #FFFFFF !important;
+}
+
 .wy-side-nav-search input[type="text"] {
   width: 100%;
   border-radius: 0px;
   padding: 6px 12px;
-  border-color: #AA00FF;
+  border-color: #330099;
 }
 
 .highlight {
@@ -36,10 +40,12 @@ a:hover {
 }
 
 .wy-nav-top {
-  background: #AA00FF;
+  background: #330099;
 }
 
-
+.rst-content code.literal, .rst-content tt.literal {
+  color: #330099;
+}
 
 /* Breadcrumbs as navbar
 ***********************************/
