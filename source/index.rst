@@ -79,6 +79,7 @@ Coding for better understanding of concepts, and for some hands-on.
 
    Using Windows APIs <https://github.com/tymyrddin/codes-reverse/tree/main/windows>
    Code snippets for using WASM <https://github.com/tymyrddin/codes-reverse/tree/main/wasm>
+   Binary loader using libbfd <https://github.com/tymyrddin/codes-reverse/tree/main/binary-loader>
 
 ----
 
