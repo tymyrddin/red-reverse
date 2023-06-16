@@ -56,7 +56,7 @@ The executable header (and the ELF file) starts with a 16-byte array called `e_i
 #define	SELFMAG		4
 ```
 
-Following the magic value, there are a number of bytes that give more detailed information about the specifics of the type of ELF file. In `elf.h`, the indexes for these bytes (indexes 4 through 15 in the e_ident array) are symbolically referred to as EI_CLASS, EI_DATA, EI_VERSION, EI_OSABI, EI_ABIVERSION, and EI_PAD, respectively.
+Following the magic value, there are a number of bytes that give more detailed information about the specifics of the type of ELF file. In `elf.h`, the indexes for these bytes (indexes 4 through 15 in the e_ident array) are symbolically referred to as `EI_CLASS`, `EI_DATA`, `EI_VERSION`, `EI_OSABI`, `EI_ABIVERSION`, and `EI_PAD`, respectively.
 
 ```text
 
@@ -112,7 +112,7 @@ If the `EI_OSABI` byte is set to nonzero, it means that some ABI- or OS-specific
 #define EI_ABIVERSION	8		/* ABI version */
 ```
 
-The `EI_ABIVERSION` byte denotes the specific version of the ABI indicated in the `EI_OSABI` byte that the binary targets. You'll usually see this set to zero because it's not necessary to specify any version information when the default EI_OSABI is used.
+The `EI_ABIVERSION` byte denotes the specific version of the ABI indicated in the `EI_OSABI` byte that the binary targets. You'll usually see this set to zero because it's not necessary to specify any version information when the default `EI_OSABI` is used.
 
 ```text
 #define EI_PAD		9		/* Byte index of padding bytes */
@@ -120,10 +120,10 @@ The `EI_ABIVERSION` byte denotes the specific version of the ABI indicated in th
 
 The `EI_PAD` field actually contains multiple bytes, namely, indexes 9 through 15 in `e_ident`. All of these bytes are currently designated as padding; they are reserved for possible future use but currently set to zero.
 
-To inspect the `e_ident` array of an ELF binary (in this case [the a.out from hello.c](anatomy.md)):
+To inspect the `e_ident` array of an ELF binary (in this case [the a.out from hello.c](elf.md)):
 
 ```text
-nina@tardis:~/Development/anatomy$ readelf -h a.out
+nina@tardis:~/Development/elf$ readelf -h a.out
 ELF Header:
   Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
   Class:                             ELF64
@@ -401,7 +401,7 @@ The `e_phoff` and `e_shoff` fields point to the file offsets where the program h
 The `e_shstrndx` field contains the index in the section header table of the header associated with a special string table section called `.shstrtab`. This is a dedicated section that contains a table of null-terminated ASCII strings, which store the names of all the sections in the binary. It is used by ELF processing tools such as readelf to correctly show the names of sections.
 
 ```text
-nina@tardis:~/Development/anatomy$ readelf -x .shstrtab a.out
+nina@tardis:~/Development/elf$ readelf -x .shstrtab a.out
 
 Hex dump of section '.shstrtab':
   0x00000000 002e7379 6d746162 002e7374 72746162 ..symtab..strtab
@@ -557,7 +557,7 @@ The `SHF_ALLOC` flag indicates that the contents of the section are to be loaded
 
 The `sh_addr`, `sh_offset`, and `sh_size` fields describe the virtual address, file offset (in bytes from the start of the file), and size (in bytes) of the section, respectively.
 
-The linker sometimes needs to know at which addresses particular pieces of code and data will end up at runtime to do relocations. The `sh_addr` field provides this information. Sections that aren’t intended to be loaded into virtual memory when setting up the process have an `sh_addr` value of zero.
+The linker sometimes needs to know at which addresses particular pieces of code and data will end up at runtime to do relocations. The `sh_addr` field provides this information. Sections that aren't intended to be loaded into virtual memory when setting up the process have an `sh_addr` value of zero.
 
 ### sh_link
 
@@ -575,3 +575,327 @@ requirements are specified in the `sh_addralign` field.
 ### sh_entsize
 
 Some sections, such as symbol tables or relocation tables, contain a table of well-defined data structures. For such sections, the `sh_entsize` field indicates the size in bytes of each entry in the table. When the field is unused, it is set to zero.
+
+## Sections
+
+Typical ELF files on a GNU/Linux system are organized into a series of standard sections. the output of `readelf` conforms closely to the structure of a section header.
+
+```text
+nina@tardis:~/Development/elf$ readelf --sections --wide a.out
+There are 31 section headers, starting at offset 0x3698:
+
+Section Headers:
+  [Nr] Name              Type            Address          Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            0000000000000000 000000 000000 00      0   0  0
+  [ 1] .interp           PROGBITS        0000000000000318 000318 00001c 00   A  0   0  1
+  [ 2] .note.gnu.property NOTE            0000000000000338 000338 000030 00   A  0   0  8
+  [ 3] .note.gnu.build-id NOTE            0000000000000368 000368 000024 00   A  0   0  4
+  [ 4] .note.ABI-tag     NOTE            000000000000038c 00038c 000020 00   A  0   0  4
+  [ 5] .gnu.hash         GNU_HASH        00000000000003b0 0003b0 000024 00   A  6   0  8
+  [ 6] .dynsym           DYNSYM          00000000000003d8 0003d8 0000a8 18   A  7   1  8
+  [ 7] .dynstr           STRTAB          0000000000000480 000480 00008d 00   A  0   0  1
+  [ 8] .gnu.version      VERSYM          000000000000050e 00050e 00000e 02   A  6   0  2
+  [ 9] .gnu.version_r    VERNEED         0000000000000520 000520 000030 00   A  7   1  8
+  [10] .rela.dyn         RELA            0000000000000550 000550 0000c0 18   A  6   0  8
+  [11] .rela.plt         RELA            0000000000000610 000610 000018 18  AI  6  24  8
+  [12] .init             PROGBITS        0000000000001000 001000 00001b 00  AX  0   0  4
+  [13] .plt              PROGBITS        0000000000001020 001020 000020 10  AX  0   0 16
+  [14] .plt.got          PROGBITS        0000000000001040 001040 000010 10  AX  0   0 16
+  [15] .plt.sec          PROGBITS        0000000000001050 001050 000010 10  AX  0   0 16
+  [16] .text             PROGBITS        0000000000001060 001060 000112 00  AX  0   0 16
+  [17] .fini             PROGBITS        0000000000001174 001174 00000d 00  AX  0   0  4
+  [18] .rodata           PROGBITS        0000000000002000 002000 000012 00   A  0   0  4
+  [19] .eh_frame_hdr     PROGBITS        0000000000002014 002014 000034 00   A  0   0  4
+  [20] .eh_frame         PROGBITS        0000000000002048 002048 0000ac 00   A  0   0  8
+  [21] .init_array       INIT_ARRAY      0000000000003db8 002db8 000008 08  WA  0   0  8
+  [22] .fini_array       FINI_ARRAY      0000000000003dc0 002dc0 000008 08  WA  0   0  8
+  [23] .dynamic          DYNAMIC         0000000000003dc8 002dc8 0001f0 10  WA  7   0  8
+  [24] .got              PROGBITS        0000000000003fb8 002fb8 000048 08  WA  0   0  8
+  [25] .data             PROGBITS        0000000000004000 003000 000010 00  WA  0   0  8
+  [26] .bss              NOBITS          0000000000004010 003010 000008 00  WA  0   0  1
+  [27] .comment          PROGBITS        0000000000000000 003010 00002d 01  MS  0   0  1
+  [28] .symtab           SYMTAB          0000000000000000 003040 000360 18     29  18  8
+  [29] .strtab           STRTAB          0000000000000000 0033a0 0001db 00      0   0  1
+  [30] .shstrtab         STRTAB          0000000000000000 00357b 00011a 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), l (large), p (processor specific)
+```
+
+### .init and .fini
+
+The `.init` section contains executable code that performs initialisation tasks and needs to run before any other code in the binary is executed (`SHF_EXECINSTR` flag).
+
+The system executes the code in the `.init` section before transferring control to the main entry point of the binary, like a constructor. The `.fini` section is analogous to the .init section, except that it runs after the main program completes, functioning as a kind of destructor.
+
+### .text
+
+The `.text` section is where the main code of the program resides, and is often the main focus of binary analysis or reverse engineering. The `[16] .text` section has type `SHT_PROGBITS` because it contains user-defined code, and the section indicate that the section is executable but not writable.
+
+Besides the application-specific code compiled from the program’s source, the `.text` section of a binary compiled by gcc usually contains a number of standard functions that perform initialisation and finalisation tasks, such as `_start`, `register_tm_clones`, and `frame_dummy`.
+
+```text
+nina@tardis:~/Development/elf$ objdump -M intel -d a.out
+
+a.out:     file format elf64-x86-64
+...
+
+Disassembly of section .text:
+
+0000000000001060 <_start>:
+    1060:	f3 0f 1e fa          	endbr64 
+    1064:	31 ed                	xor    ebp,ebp
+    1066:	49 89 d1             	mov    r9,rdx
+    1069:	5e                   	pop    rsi
+    106a:	48 89 e2             	mov    rdx,rsp
+    106d:	48 83 e4 f0          	and    rsp,0xfffffffffffffff0
+    1071:	50                   	push   rax
+    1072:	54                   	push   rsp
+    1073:	45 31 c0             	xor    r8d,r8d
+    1076:	31 c9                	xor    ecx,ecx
+    1078:	48 8d 3d ca 00 00 00 	lea    rdi,[rip+0xca]        # 1149 <main>
+    107f:	ff 15 53 2f 00 00    	call   QWORD PTR [rip+0x2f53]        # 3fd8 <__libc_start_main@GLIBC_2.34>
+    1085:	f4                   	hlt    
+    1086:	66 2e 0f 1f 84 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+    108d:	00 00 00  
+...
+
+0000000000001149 <main>:
+    1149:	f3 0f 1e fa          	endbr64 
+    114d:	55                   	push   rbp
+    114e:	48 89 e5             	mov    rbp,rsp
+    1151:	48 83 ec 10          	sub    rsp,0x10
+    1155:	89 7d fc             	mov    DWORD PTR [rbp-0x4],edi
+    1158:	48 89 75 f0          	mov    QWORD PTR [rbp-0x10],rsi
+    115c:	48 8d 05 a1 0e 00 00 	lea    rax,[rip+0xea1]        # 2004 <_IO_stdin_used+0x4>
+    1163:	48 89 c7             	mov    rdi,rax
+    1166:	e8 e5 fe ff ff       	call   1050 <puts@plt>
+    116b:	b8 00 00 00 00       	mov    eax,0x0
+    1170:	c9                   	leave  
+    1171:	c3                   	ret 
+```
+
+The entry point of the binary, does not point to `main`, but to the beginning of `_start`. `_start` contains an instruction that moves the address of main into the `rdi` register, which is one of the registers used to pass parameters for function calls on the x64 platform. Then, `_start` calls a function called `__libc_start_main`. It resides in the `.plt` section, which means the function is part of a shared library. And `__libc_start_main` finally calls to the address of `main` to begin execution of the user-defined code.
+
+### .bss, .data, and .rodata
+
+Because code sections are usually not writable, variables are kept in one or more dedicated sections, which are writable. Constant data is usually also kept in its own section to keep the binary neatly organised, though compilers do sometimes output constant data in code sections. Modern versions of `gcc` and `clang` do not mix code and data, but Visual Studio sometimes does, making disassembly difficult because it is not always clear which bytes represent instructions and which represent data.
+
+The `.rodata` section is dedicated to storing constant values, and not writable. The default values of initialised variables are stored in the `.data` section, which is marked as writable since the values of variables may change
+at runtime. The `.bss` section reserves space for uninitialised variables.
+
+Unlike `.rodata` and `.data`, which have type `SHT_PROGBITS`, the `.bss` section has type `SHT_NOBITS` (`.bss` does not occupy any bytes in the binary as it exists on disk). This is because it is only a directive to allocate a properly sized block of memory for uninitialised variables when setting up an execution environment for the binary. Variables that live in `.bss` are zero initialised, and the section is marked as writable.
+
+### .plt, .got, and .got.plt
+
+Lazy binding ensures that the dynamic linker never needlessly wastes time on relocations; it only performs those relocations that are truly needed at runtime. On Linux, lazy binding is the default behaviour of the dynamic
+linker.
+
+Lazy binding in Linux ELF binaries is implemented with the help of two special sections, called the Procedure Linkage Table (`.plt`) and the Global Offset Table (`.got`). ELF binaries often contain a separate GOT section called .got.plt for use in conjunction with `.plt` in the lazy binding process. More specifically, `.got` is for relocations regarding global 'variables' while `.got.plt` is an auxiliary section to act together with `.plt` when resolving procedures absolute addresses.
+
+`.plt` is a code section that contains executable code, just like `.text`, while `.got.plt` is a data section. The PLT consists entirely of stubs of a well-defined format, dedicated to directing calls from the `.text` section to the appropriate library location.
+
+Example from "Practical Binary Analysis":
+
+![Calling a shared library function via the PLT](../../_static/images/got-plt.png)
+
+To call the `puts` function (part of the `libc` library):
+
+1. Make a call to the corresponding PLT stub, `puts@plt`.
+2. The PLT stub begins with an indirect jump instruction, which jumps to an address stored in the `.got.plt` section.
+3. Before the lazy binding has happened, this address is simply the address of the next instruction in the function stub, which is a `push` instruction. Thus, the indirect jump simply transfers control to the instruction directly after it.
+4. The `push` instruction pushes an integer (in this case, `0x0`) onto the stack. This integer serves as an identifier for the PLT stub in question. Subsequently, the next instruction jumps to the common default stub shared among all PLT function stubs.
+5. The default stub pushes another identifier (taken from the GOT), identifying the executable itself, and then jumps (indirectly, again through the GOT) to the dynamic linker.
+
+----
+
+`.plt.got` is an alternative PLT that uses read-only `.got` entries instead of `.got.plt` entries. It is used when
+enabling the `ld` option `-z now` at compile time, telling `ld` that you want to use “now binding.” This has the same effect as `LD_BIND_NOW=1`, but by informing `ld` at compile time, you allow it to place GOT entries in `.got` for enhanced security and use 8-byte `.plt.got` entries instead of larger 16-byte `.plt` entries.
+
+----
+
+### .rel.* and .rela.*
+
+`rela.*` sections are of type `SHT_RELA`, meaning that they contain information used by the linker. Each section of type `SHT_RELA` is a table of relocation entries, with each entry detailing a particular address where a relocation needs to be applied, as well as instructions on how to resolve the particular value that needs to be plugged in at this address. What all relocation types have in common is that they specify an offset at which to apply the relocation. For normal binary analysis tasks it is not necessary to know the details of how to compute the value to plug in at the offset for a particular relocation type.
+
+### .dynamic
+
+The `.dynamic` section functions as a “road map” for the operating system and dynamic linker when loading and setting up an ELF binary for execution. The `.dynamic` section contains a table of `Elf64_Dyn` structures, also referred to as `tags`. There are different types of tags, each of which comes with an associated value.
+
+```text
+nina@tardis:~/Development/elf$ readelf --dynamic a.out
+
+Dynamic section at offset 0x2dc8 contains 27 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000000c (INIT)               0x1000
+ 0x000000000000000d (FINI)               0x1174
+ 0x0000000000000019 (INIT_ARRAY)         0x3db8
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0x3dc0
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x3b0
+ 0x0000000000000005 (STRTAB)             0x480
+ 0x0000000000000006 (SYMTAB)             0x3d8
+ 0x000000000000000a (STRSZ)              141 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0x3fb8
+ 0x0000000000000002 (PLTRELSZ)           24 (bytes)
+ 0x0000000000000014 (PLTREL)             RELA
+ 0x0000000000000017 (JMPREL)             0x610
+ 0x0000000000000007 (RELA)               0x550
+ 0x0000000000000008 (RELASZ)             192 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000000000001e (FLAGS)              BIND_NOW
+ 0x000000006ffffffb (FLAGS_1)            Flags: NOW PIE
+ 0x000000006ffffffe (VERNEED)            0x520
+ 0x000000006fffffff (VERNEEDNUM)         1
+ 0x000000006ffffff0 (VERSYM)             0x50e
+ 0x000000006ffffff9 (RELACOUNT)          3
+ 0x0000000000000000 (NULL)               0x0
+```
+
+Tags of type `DT_NEEDED` inform the dynamic linker about dependencies of the executable. The `DT_VERNEED` and `DT_VERNEEDNUM` tags specify the starting address and number of entries of the version dependency table, which indicates the expected version of the various dependencies of the executable.
+
+In addition to listing dependencies, the `.dynamic` section also contains pointers to other important information required by the dynamic linker, like the dynamic string table, dynamic symbol table, `.got.plt`section, and dynamic relocation section pointed to by tags of type `DT_STRTAB`, `DT_SYMTAB`, `DT_PLTGOT`, and `DT_RELA`.
+
+### .init_array and .fini_array
+
+The `.init_array` section contains an array of pointers to functions to use as constructors. Each of these functions is called in turn when the binary is initialised, before main is called. While the `.init` section contains a single startup function that performs some crucial initialisation needed to start the executable, `.init_array` is a data section that can contain as many function pointers as wanted, including pointers to user made custom constructors. In `gcc`, these can be marked as constructor functions in the C source files by decorating them with `__attribute__((constructor))`.
+
+To show the contents of `.init_array`:
+
+```text
+nina@tardis:~/Development/elf$ objdump -d --section .init_array a.out
+
+a.out:     file format elf64-x86-64
+
+
+Disassembly of section .init_array:
+
+0000000000003db8 <__frame_dummy_init_array_entry>:
+    3db8:	40 11 00 00 00 00 00 00                             @.......
+```
+
+`40 11 00 00 00 00 00 00` is little-endian-speak for the address `0x1140`. Using `objdump` to shows that this is indeed the starting address of the `frame_dummy` function:
+
+```text
+nina@tardis:~/Development/elf$ objdump -d a.out | grep '<frame_dummy>'
+0000000000001140 <frame_dummy>:
+```
+
+`.fini_array` is analogous to `.init_array`, except that `.fini_array` contains pointers to destructors rather than constructors. 
+
+----
+
+The pointers contained in `.init_array` and `.fini_array` are easy to change, making them convenient places to insert hooks that add initialisation or finalisation code to the binary to modify its behaviour.
+
+----
+
+Binaries produced by older gcc versions may contain sections called `.ctors` and `.dtors` instead of `.init_array` and `.fini_array`.
+
+----
+
+### shstrtab, .symtab, .strtab, .dynsym, and .dynstr
+
+The `.shstrtab` section is an array of `NULL`-terminated strings that contain the names of all the sections in the binary. It is indexed by the section headers to allow tools like readelf to find out the names of the sections.
+
+The `.symtab` section contains a symbol table, a table of `Elf64_Sym` structures, each of which associates a symbolic name with a piece of code or data elsewhere in the binary, such as a function or variable. The actual strings containing the symbolic names are located in the `.strtab` section. These strings are pointed to by the `Elf64_Sym` structures. In practice, binaries will often be stripped, meaning the `.symtab` and `.strtab` tables are removed.
+
+The `.dynsym` and `.dynstr` sections are analogous to `.symtab` and `.strtab`, except that they contain symbols and strings needed for dynamic linking rather than static linking. These cannot be stripped.
+
+## Program headers
+
+The section view of an ELF binary is meant for static linking purposes only. The segment view is used by the OS and dynamic linker when loading an ELF into a process for execution to locate the relevant code and data and decide what to load into virtual memory. The program header table provides a segment view of the binary. 
+
+```text
+/* Program segment header.  */
+
+typedef struct
+{
+  Elf32_Word	p_type;			/* Segment type */
+  Elf32_Off	p_offset;		/* Segment file offset */
+  Elf32_Addr	p_vaddr;		/* Segment virtual address */
+  Elf32_Addr	p_paddr;		/* Segment physical address */
+  Elf32_Word	p_filesz;		/* Segment size in file */
+  Elf32_Word	p_memsz;		/* Segment size in memory */
+  Elf32_Word	p_flags;		/* Segment flags */
+  Elf32_Word	p_align;		/* Segment alignment */
+} Elf32_Phdr;
+
+typedef struct
+{
+  Elf64_Word	p_type;			/* Segment type */
+  Elf64_Word	p_flags;		/* Segment flags */
+  Elf64_Off	p_offset;		/* Segment file offset */
+  Elf64_Addr	p_vaddr;		/* Segment virtual address */
+  Elf64_Addr	p_paddr;		/* Segment physical address */
+  Elf64_Xword	p_filesz;		/* Segment size in file */
+  Elf64_Xword	p_memsz;		/* Segment size in memory */
+  Elf64_Xword	p_align;		/* Segment alignment */
+} Elf64_Phdr;
+```
+
+The program header of `hello.c` as shown by readelf:
+
+```text
+nina@tardis:~/Development/elf$ readelf --wide --segments a.out
+
+Elf file type is DYN (Position-Independent Executable file)
+Entry point 0x1060
+There are 13 program headers, starting at offset 64
+
+Program Headers:
+  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align
+  PHDR           0x000040 0x0000000000000040 0x0000000000000040 0x0002d8 0x0002d8 R   0x8
+  INTERP         0x000318 0x0000000000000318 0x0000000000000318 0x00001c 0x00001c R   0x1
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+  LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x000628 0x000628 R   0x1000
+  LOAD           0x001000 0x0000000000001000 0x0000000000001000 0x000181 0x000181 R E 0x1000
+  LOAD           0x002000 0x0000000000002000 0x0000000000002000 0x0000f4 0x0000f4 R   0x1000
+  LOAD           0x002db8 0x0000000000003db8 0x0000000000003db8 0x000258 0x000260 RW  0x1000
+  DYNAMIC        0x002dc8 0x0000000000003dc8 0x0000000000003dc8 0x0001f0 0x0001f0 RW  0x8
+  NOTE           0x000338 0x0000000000000338 0x0000000000000338 0x000030 0x000030 R   0x8
+  NOTE           0x000368 0x0000000000000368 0x0000000000000368 0x000044 0x000044 R   0x4
+  GNU_PROPERTY   0x000338 0x0000000000000338 0x0000000000000338 0x000030 0x000030 R   0x8
+  GNU_EH_FRAME   0x002014 0x0000000000002014 0x0000000000002014 0x000034 0x000034 R   0x4
+  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x000000 RW  0x10
+  GNU_RELRO      0x002db8 0x0000000000003db8 0x0000000000003db8 0x000248 0x000248 R   0x1
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     
+   01     .interp 
+   02     .interp .note.gnu.property .note.gnu.build-id .note.ABI-tag .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .rela.plt 
+   03     .init .plt .plt.got .plt.sec .text .fini 
+   04     .rodata .eh_frame_hdr .eh_frame 
+   05     .init_array .fini_array .dynamic .got .data .bss 
+   06     .dynamic 
+   07     .note.gnu.property 
+   08     .note.gnu.build-id .note.ABI-tag 
+   09     .note.gnu.property 
+   10     .eh_frame_hdr 
+   11     
+   12     .init_array .fini_array .dynamic .got
+```
+
+### p_type
+
+The `p_type` field identifies the type of the segment. Important values for this field include `PT_LOAD`, `PT_DYNAMIC`, and `PT_INTERP`.
+
+There are usually ***at least*** two `PT_LOAD` segments, one for the nonwritable sections and one for the writable data sections. The `PT_INTERP` segment contains the `.interp` section, which provides the name of the interpreter that is to be used to load the binary. The `PT_DYNAMIC` segment contains the `.dynamic section`, which tells the interpreter how to parse and prepare the binary for execution. The `PT_PHDR` segment, holds the program header table.
+
+### p_flags
+
+The `PF_X` flag indicates that the segment is executable and is set for code segments (readelf displays it as an `E` instead of an `X`). The `PF_W` flag means that the segment is writable, and is normally set only for writable data segments, never for code segments. `PF_R` means that the segment is readable, as is normally the case for both code and data segments.
+
+### p_offset, p_vaddr, p_paddr, p_filesz, and p_memsz
+
+The `p_offset`, `p_vaddr`, and `p_filesz` fields are analogous to the `sh_offset`, `sh_addr`, and `sh_size` fields in a section header, and specify the file offset at which the segment starts, the virtual address at which it is to be loaded, and the file size of the segment, respectively. For loadable segments, `p_vaddr` must be equal to `p_offset`, modulo the page size (typically `4,096` bytes).
+
+### p_align
+
+The `p_align` field is analogous to the `sh_addralign` field in a section header. It indicates the required memory alignment (in bytes) for the segment. If `p_align` is not set to 0 or 1, then its value must be a power of 2, and `p_vaddr` must be equal to `p_offset`, modulo `p_align`.
