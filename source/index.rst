@@ -24,6 +24,7 @@ experience. Knowing these common behaviours gives an idea of what to look for on
    Analysis automation programming <https://testlab.tymyrddin.dev/docs/aap/README>
    Software forensic tools <https://testlab.tymyrddin.dev/docs/dfir/README>
    Malware analysis tools <https://testlab.tymyrddin.dev/docs/malware/README>
+   Binary analysis VM <https://testlab.tymyrddin.dev/docs/vm/ba>
 
 ----
 
