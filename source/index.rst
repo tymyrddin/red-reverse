@@ -1,10 +1,9 @@
 Cracking nuts & malware analysis
 =========================================
 
-Deciphering the inner workings of compiled languages in detail. Disassembling binaries to solve the crackmes at the assembly level.
+Deciphering the inner workings of compiled languages in detail. Disassembling binaries to solve crackmes at the assembly level, using as basic tools as possible.
 
-And inspecting several malware samples in the wild, a typical pattern arises, making analysing other samples easier with
-experience. Knowing these common behaviours gives an idea of what to look for on the defensive side.
+And inspecting several malware samples in the wild, a typical pattern arises, making analysing other samples easier with experience. Knowing these common behaviours gives an idea of what to look for on the defensive side.
 
 .. image:: _static/images/in-progress.png
   :alt: Forever in progress ...
@@ -141,13 +140,8 @@ Coding for better understanding of concepts, and for some hands-on.
 Books
 ---------------------------
 
-.. grid:: 4
+.. grid:: 3
     :gutter: 1
-
-    .. grid-item-card::
-        :link: https://nostarch.com/malware
-
-        .. image:: _static/images/bookcovers/practical-malware-analysis.png
 
     .. grid-item-card::
         :link: https://nostarch.com/binaryanalysis
@@ -155,11 +149,29 @@ Books
         .. image:: _static/images/bookcovers/practical-binary-analysis.png
 
     .. grid-item-card::
+        :link: https://link.springer.com/book/10.1007/978-1-4842-9153-5
+
+        .. image:: _static/images/bookcovers/foundations-linux-debugging-disassembling-reversing.png
+
+    .. grid-item-card::
         :link: https://www.packtpub.com/product/mastering-reverse-engineering/9781788838849
 
         .. image:: _static/images/bookcovers/mastering-reverse-engineering.png
 
-    .. grid-item-card::
-        :link: https://link.springer.com/book/10.1007/978-1-4842-9153-5
+.. grid:: 3
+    :gutter: 1
 
-        .. image:: _static/images/bookcovers/foundations-linux-debugging-disassembling-reversing.png
+    .. grid-item-card::
+        :link: https://nostarch.com/rootkits
+
+        .. image:: _static/images/bookcovers/rootkits-bootkits.png
+
+    .. grid-item-card::
+        :link: https://nostarch.com/malware
+
+        .. image:: _static/images/bookcovers/practical-malware-analysis.png
+
+    .. grid-item-card::
+        :link: https://www.packtpub.com/product/mobile-app-reverse-engineering/9781801073394
+
+        .. image:: _static/images/bookcovers/mobile-app-reverse-engineering.png
