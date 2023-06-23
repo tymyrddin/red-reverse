@@ -138,5 +138,28 @@ Coding for better understanding of concepts, and for some hands-on.
 
 ----
 
-.. image:: _static/images/books.png
-  :alt: Useful books
+Books
+---------------------------
+
+.. grid:: 4
+    :gutter: 1
+
+    .. grid-item-card::
+        :link: https://nostarch.com/malware
+
+        .. image:: _static/images/bookcovers/practical-malware-analysis.png
+
+    .. grid-item-card::
+        :link: https://nostarch.com/binaryanalysis
+
+        .. image:: _static/images/bookcovers/practical-binary-analysis.png
+
+    .. grid-item-card::
+        :link: https://www.packtpub.com/product/mastering-reverse-engineering/9781788838849
+
+        .. image:: _static/images/bookcovers/mastering-reverse-engineering.png
+
+    .. grid-item-card::
+        :link: https://link.springer.com/book/10.1007/978-1-4842-9153-5
+
+        .. image:: _static/images/bookcovers/foundations-linux-debugging-disassembling-reversing.png
