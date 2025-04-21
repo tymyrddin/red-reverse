@@ -69,16 +69,17 @@ Notes on techniques
 
 ----
 
-Coding for better understanding of concepts, and for some hands-on.
-
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Useful snippets
+   :caption: Code
 
    Using Windows APIs <https://github.com/tymyrddin/codes-reverse/tree/main/windows>
    Code snippets for using WASM <https://github.com/tymyrddin/codes-reverse/tree/main/wasm>
    Binary loader using libbfd <https://github.com/tymyrddin/codes-reverse/tree/main/binary-loader>
+   Memory analysis <https://github.com/tymyrddin/codes-reverse/blob/main/memory-analyser/README.md>
+   Virtual function reverse engineering tool <https://github.com/tymyrddin/codes-reverse/blob/main/vtable_analyser/README.md>
+    Analysing Anti-Reverse engineering tricks <https://github.com/tymyrddin/codes-reverse/blob/main/anti_re_analyser/README.md>
 
 ----
 
