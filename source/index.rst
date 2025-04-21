@@ -79,7 +79,7 @@ Notes on techniques
    Binary loader using libbfd <https://github.com/tymyrddin/codes-reverse/tree/main/binary-loader>
    Memory analysis <https://github.com/tymyrddin/codes-reverse/blob/main/memory-analyser/README.md>
    Virtual function reverse engineering tool <https://github.com/tymyrddin/codes-reverse/blob/main/vtable_analyser/README.md>
-    Analysing Anti-Reverse engineering tricks <https://github.com/tymyrddin/codes-reverse/blob/main/anti_re_analyser/README.md>
+   Analysing Anti-Reverse engineering tricks <https://github.com/tymyrddin/codes-reverse/blob/main/anti_re_analyser/README.md>
 
 ----
 
