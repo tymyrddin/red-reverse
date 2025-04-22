@@ -468,14 +468,13 @@ Using the radare2 debugger:
 [x] Enable constraint types analysis for variables
 ```
 
-[Visual mode](https://book.rada.re/visual_mode/intro.html) allows easy navigation, has a cursor mode for selecting bytes, and offers numerous key bindings to simplify debugger use. 
+Visual mode allows easy navigation, has a cursor mode for selecting bytes, and offers numerous key bindings to simplify debugger use. 
 
 The `V` command sets the console to visual mode to debug the program while having an interactive view of the registry and the stack. Entering `:` shows a command console. Pressing `Enter` takes back to visual mode. To exit from visual mode back to command line, press q.
 
 ![Radare 2 Visual mode](../../_static/images/radare-v-mode.png)
 
 ## Getting a password
-
 
 ```text
 ┌──(kali㉿kali)-[~/Development/C/passcode]

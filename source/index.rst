@@ -27,9 +27,6 @@ And inspecting several malware samples in the wild, a typical pattern arises, ma
 
 ----
 
-Notes on techniques
------------------------------
-
 .. toctree::
    :glob:
    :maxdepth: 1
@@ -53,6 +50,19 @@ Notes on techniques
    docs/cracking/windows.md
    docs/cracking/wasm.md
 
+
+.. toctree::
+   :maxdepth: 1
+   :includehidden:
+   :caption: RE applications @GitHub
+
+   macOS Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-mac-apps>
+   Windows Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-windows-apps>
+   Linux Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-linux-apps>
+   Code snippets for using WASM <https://github.com/tymyrddin/codes-reverse/blob/main/wasm/README.md>
+
+----
+
 .. toctree::
    :glob:
    :maxdepth: 1
@@ -67,8 +77,6 @@ Notes on techniques
    docs/malware/analysis.md
    docs/malware/packers.md
 
-----
-
 .. toctree::
    :maxdepth: 1
    :includehidden:
@@ -79,15 +87,6 @@ Notes on techniques
    Analysing Anti-Reverse engineering tricks <https://github.com/tymyrddin/codes-reverse/blob/main/anti_re_analyser/README.md>
    PE/ELF header parser <https://github.com/tymyrddin/codes-reverse/blob/main/pe-elf-header-parser/README.md>
    Dynamic analysis for API monitoring <https://github.com/tymyrddin/codes-reverse/blob/main/dynamic-analysis-api/README.md>
-
-.. toctree::
-   :maxdepth: 1
-   :includehidden:
-   :caption: RE applications @GitHub
-
-   macOS Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-mac-apps>
-   Windows Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-windows-apps>
-   Linux Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-linux-apps>
 
 ----
 
