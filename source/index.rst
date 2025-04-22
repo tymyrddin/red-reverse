@@ -13,7 +13,7 @@ And inspecting several malware samples in the wild, a typical pattern arises, ma
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Testlab (other locations)
+   :caption: Tools @Testlab
 
    Static analysis <https://testlab.tymyrddin.dev/docs/static/README>
    Disassemblers <https://testlab.tymyrddin.dev/docs/dis/README>
@@ -79,6 +79,15 @@ Notes on techniques
    Analysing Anti-Reverse engineering tricks <https://github.com/tymyrddin/codes-reverse/blob/main/anti_re_analyser/README.md>
    PE/ELF header parser <https://github.com/tymyrddin/codes-reverse/blob/main/pe-elf-header-parser/README.md>
    Dynamic analysis for API monitoring <https://github.com/tymyrddin/codes-reverse/blob/main/dynamic-analysis-api/README.md>
+
+.. toctree::
+   :maxdepth: 1
+   :includehidden:
+   :caption: RE applications @GitHub
+
+   macOS Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-mac-apps>
+   Windows Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-windows-apps>
+   Linux Reverse Engineering framework <https://github.com/tymyrddin/codes-reverse/blob/main/reveng-linux-apps>
 
 ----
 
