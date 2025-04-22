@@ -72,14 +72,13 @@ Notes on techniques
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Code
+   :caption: Code for malware analysis
 
-   Using Windows APIs <https://github.com/tymyrddin/codes-reverse/tree/main/windows>
-   Code snippets for using WASM <https://github.com/tymyrddin/codes-reverse/tree/main/wasm>
-   Binary loader using libbfd <https://github.com/tymyrddin/codes-reverse/tree/main/binary-loader>
    Memory analysis <https://github.com/tymyrddin/codes-reverse/blob/main/memory-analyser/README.md>
    Virtual function reverse engineering tool <https://github.com/tymyrddin/codes-reverse/blob/main/vtable_analyser/README.md>
    Analysing Anti-Reverse engineering tricks <https://github.com/tymyrddin/codes-reverse/blob/main/anti_re_analyser/README.md>
+   PE/ELF header parser <https://github.com/tymyrddin/codes-reverse/blob/main/pe-elf-header-parser/README.md>
+   Dynamic analysis for API monitoring <https://github.com/tymyrddin/codes-reverse/blob/main/dynamic-analysis-api/README.md>
 
 ----
 
