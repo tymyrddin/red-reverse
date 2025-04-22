@@ -13,7 +13,7 @@ And inspecting several malware samples in the wild, a typical pattern arises, ma
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Testlab
+   :caption: Testlab (other locations)
 
    Static analysis <https://testlab.tymyrddin.dev/docs/static/README>
    Disassemblers <https://testlab.tymyrddin.dev/docs/dis/README>
@@ -72,7 +72,7 @@ Notes on techniques
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Code for malware analysis
+   :caption: Malware analysis code @GitHub
 
    Memory analysis <https://github.com/tymyrddin/codes-reverse/blob/main/memory-analyser/README.md>
    Virtual function reverse engineering tool <https://github.com/tymyrddin/codes-reverse/blob/main/vtable_analyser/README.md>
